@@ -1,9 +1,12 @@
-package com.tutorials.java.concurrency.deadlock;
+package com.tutorials.java.concurrency.deadlock.prevention;
+
+import com.tutorials.java.concurrency.deadlock.Runnable1;
+import com.tutorials.java.concurrency.deadlock.Runnable2;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class DeadlockExample {
+public class DeadlockReordering {
 
     public static void main(String[] args) {
 
@@ -11,8 +14,8 @@ public class DeadlockExample {
         Lock lock2 = new ReentrantLock();
 
         Runnable runnable1 = new Runnable1(lock1, lock2);
-        Runnable runnable2 = new Runnable2(lock1, lock2);
-//        Runnable runnable2 = new Runnable2(lock2, lock1);  the fix for deadlock
+//        Runnable runnable2 = new Runnable2(lock1, lock2);
+        Runnable runnable2 = new Runnable2(lock2, lock1);
         Thread thread1 = new Thread(runnable1);
         Thread thread2 = new Thread(runnable2);
 
